@@ -1,0 +1,19 @@
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode node) {
+        List<Integer> res = new ArrayList<>();
+        inorder(node, res);
+        return res;
+    }
+
+    private void inorder(TreeNode node, List<Integer> res){
+        if(node == null) return;
+
+        inorder(node.left, res);
+        res.add(node.val);
+        inorder(node.right, res);
+    }
+}
+
+Time Complexity: O(n), where n is the number of nodes (each node is visited once).
+
+Space Complexity: O(n), where n is the number of nodes (due to the recursion stack and result list).
