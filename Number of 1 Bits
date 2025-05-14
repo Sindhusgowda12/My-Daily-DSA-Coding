@@ -1,0 +1,21 @@
+class Solution {
+    public int hammingWeight(int n) {
+        int cnt = 0;
+        while(n != 0){
+            cnt = cnt + (n & 1);
+            n = n >>> 1;
+        }
+        return cnt;
+    }
+}
+
+Time Complexity: O(1)
+Even though there's a while loop, it runs at most 32 times (since Java int is 32 bits).
+So the number of operations is fixed, not based on input value.
+Constant time = O(1)
+
+Space Complexity: O(1)
+Uses only a few variables (count, n).
+No extra memory or data structures.
+Constant space = O(1)
+
