@@ -1,0 +1,39 @@
+class Solution {
+    private boolean isCyclic(List<List<Integer>> adj, int[] visited, int curr) {
+        if (visited[curr] == 2) return true; // Cycle found (currently visiting)
+        
+        visited[curr] = 2; // Mark as visiting
+
+        for (int neighbor : adj.get(curr)) {
+            if (visited[neighbor] != 1) { // Not fully visited
+                if (isCyclic(adj, visited, neighbor)) return true;
+            }
+        }
+
+        visited[curr] = 1; // Mark as visited
+        return false;
+    }
+
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        // Build graph
+        List<List<Integer>> adj = new ArrayList<>();
+        for (int i = 0; i < numCourses; ++i) {
+            adj.add(new ArrayList<>());
+        }
+
+        // ⚠️ Correct direction: b → a (must take b before a)
+        for (int[] pre : prerequisites) {
+            adj.get(pre[1]).add(pre[0]);
+        }
+
+        int[] visited = new int[numCourses]; // 0 = unvisited, 2 = visiting, 1 = visited
+
+        for (int i = 0; i < numCourses; ++i) {
+            if (visited[i] == 0) {
+                if (isCyclic(adj, visited, i)) return false;
+            }
+        }
+
+        return true;
+    }
+}
